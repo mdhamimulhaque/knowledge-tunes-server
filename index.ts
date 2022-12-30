@@ -1,4 +1,5 @@
 import { Request, Response, Application } from 'express';
+import { ObjectId } from 'mongodb';
 const express = require('express');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const cors = require('cors');
@@ -31,6 +32,15 @@ const run = async () => {
         app.get('/posts', async (req: Request, res: Response) => {
             const query = {};
             const result = await postsCollection.find(query).toArray();
+            res.send(result)
+        });
+        // ---> post details  get
+
+
+        app.get('/post/:id', async (req: Request, res: Response) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await postsCollection.findOne(query);
             res.send(result)
         });
 

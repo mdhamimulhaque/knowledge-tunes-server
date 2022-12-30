@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var mongodb_1 = require("mongodb");
 var express = require('express');
 var _a = require('mongodb'), MongoClient = _a.MongoClient, ServerApiVersion = _a.ServerApiVersion;
 var cors = require('cors');
@@ -65,6 +66,22 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                         case 0:
                             query = {};
                             return [4 /*yield*/, postsCollection_1.find(query).toArray()];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            // ---> post details  get
+            app.get('/post/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var id, query, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            id = req.params.id;
+                            query = { _id: new mongodb_1.ObjectId(id) };
+                            return [4 /*yield*/, postsCollection_1.findOne(query)];
                         case 1:
                             result = _a.sent();
                             res.send(result);
