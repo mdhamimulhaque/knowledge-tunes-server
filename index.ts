@@ -35,8 +35,6 @@ const run = async () => {
             res.send(result)
         });
         // ---> post details  get
-
-
         app.get('/post/:id', async (req: Request, res: Response) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
@@ -44,6 +42,13 @@ const run = async () => {
             res.send(result)
         });
 
+        // --->
+        app.get('/category/:name', async (req: Request, res: Response) => {
+            const name = req.params.name;
+            const query = { category: name };
+            const result = await postsCollection.find(query).toArray();
+            res.send(result)
+        });
 
 
     } finally { }

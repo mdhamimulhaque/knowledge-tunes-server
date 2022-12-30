@@ -89,6 +89,22 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
+            // --->
+            app.get('/category/:name', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var name, query, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            name = req.params.name;
+                            query = { category: name };
+                            return [4 /*yield*/, postsCollection_1.find(query).toArray()];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
         }
         finally { }
         return [2 /*return*/];
