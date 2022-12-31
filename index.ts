@@ -21,6 +21,7 @@ const run = async () => {
     try {
         // ---> db collections
         const postsCollection = client.db("knowledgeTunes").collection("Posts");
+        const usersCollection = client.db("knowledgeTunes").collection("Users");
 
 
         // ---> test
@@ -42,13 +43,25 @@ const run = async () => {
             res.send(result)
         });
 
-        // --->
+        // ---> category get
         app.get('/category/:name', async (req: Request, res: Response) => {
             const name = req.params.name;
             const query = { category: name };
             const result = await postsCollection.find(query).toArray();
             res.send(result)
         });
+
+        // ---> userinfo store
+        app.put('/users', async (req: Request, res: Response) => {
+            const users = req.body;
+            const filter = { email: users.email };
+            const options = { upsert: true };
+            const updateUser = {
+                $set: users,
+            };
+            const result = await usersCollection.updateOne(filter, updateUser, options);
+            res.send(result)
+        })
 
 
     } finally { }

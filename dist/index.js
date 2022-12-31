@@ -50,10 +50,11 @@ app.use(express.json());
 var uri = "mongodb+srv://".concat(process.env.DB_USER, ":").concat(process.env.DB_USER_PASS, "@cluster0.76zc9vk.mongodb.net/?retryWrites=true&w=majority");
 var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var postsCollection_1;
+    var postsCollection_1, usersCollection_1;
     return __generator(this, function (_a) {
         try {
             postsCollection_1 = client.db("knowledgeTunes").collection("Posts");
+            usersCollection_1 = client.db("knowledgeTunes").collection("Users");
             // ---> test
             app.get('/', function (req, res) {
                 res.send('server is running');
@@ -89,7 +90,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
-            // --->
+            // ---> category get
             app.get('/category/:name', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var name, query, result;
                 return __generator(this, function (_a) {
@@ -98,6 +99,26 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                             name = req.params.name;
                             query = { category: name };
                             return [4 /*yield*/, postsCollection_1.find(query).toArray()];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            // ---> userinfo store
+            app.put('/users', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var users, filter, options, updateUser, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            users = req.body;
+                            filter = { email: users.email };
+                            options = { upsert: true };
+                            updateUser = {
+                                $set: users,
+                            };
+                            return [4 /*yield*/, usersCollection_1.updateOne(filter, updateUser, options)];
                         case 1:
                             result = _a.sent();
                             res.send(result);
