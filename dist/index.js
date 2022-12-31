@@ -108,18 +108,20 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
             }); });
             // ---> userinfo store
             app.put('/users', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-                var users, filter, options, updateUser, result;
+                var users, query, findUser, result;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             users = req.body;
-                            filter = { email: users.email };
-                            options = { upsert: true };
-                            updateUser = {
-                                $set: users,
-                            };
-                            return [4 /*yield*/, usersCollection_1.updateOne(filter, updateUser, options)];
+                            query = { email: users.email };
+                            return [4 /*yield*/, usersCollection_1.findOne(query)];
                         case 1:
+                            findUser = _a.sent();
+                            if (findUser) {
+                                return [2 /*return*/, res.send({ acknowledged: true })];
+                            }
+                            return [4 /*yield*/, usersCollection_1.insertOne(users)];
+                        case 2:
                             result = _a.sent();
                             res.send(result);
                             return [2 /*return*/];

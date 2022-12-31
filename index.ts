@@ -54,12 +54,12 @@ const run = async () => {
         // ---> userinfo store
         app.put('/users', async (req: Request, res: Response) => {
             const users = req.body;
-            const filter = { email: users.email };
-            const options = { upsert: true };
-            const updateUser = {
-                $set: users,
-            };
-            const result = await usersCollection.updateOne(filter, updateUser, options);
+            const query = { email: users.email };
+            const findUser = await usersCollection.findOne(query);
+            if (findUser) {
+                return res.send({ acknowledged: true })
+            }
+            const result = await usersCollection.insertOne(users);
             res.send(result)
         })
 
