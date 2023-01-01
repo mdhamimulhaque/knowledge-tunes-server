@@ -63,6 +63,24 @@ const run = async () => {
             res.send(result)
         })
 
+        // ---> author post delete
+        app.get('/author', async (req: Request, res: Response) => {
+            const email = req.query.email;
+            if (email != 'undefined') {
+                const query = { email: email };
+                const result = await postsCollection.find(query).toArray();
+                res.send(result)
+            }
+        })
+
+        // ---> author post delete
+        app.delete('/author/:id', async (req: Request, res: Response) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await postsCollection.find(query).toArray();
+            res.send(result)
+        })
+
 
     } finally { }
 }

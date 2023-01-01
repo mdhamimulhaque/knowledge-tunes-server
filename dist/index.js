@@ -128,6 +128,40 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
+            // ---> author post delete
+            app.get('/author', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var email, query, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            email = req.query.email;
+                            if (!(email != 'undefined')) return [3 /*break*/, 2];
+                            query = { email: email };
+                            return [4 /*yield*/, postsCollection_1.find(query).toArray()];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            _a.label = 2;
+                        case 2: return [2 /*return*/];
+                    }
+                });
+            }); });
+            // ---> author post delete
+            app.delete('/author/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var id, query, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            id = req.params.id;
+                            query = { _id: new mongodb_1.ObjectId(id) };
+                            return [4 /*yield*/, postsCollection_1.find(query).toArray()];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
         }
         finally { }
         return [2 /*return*/];
