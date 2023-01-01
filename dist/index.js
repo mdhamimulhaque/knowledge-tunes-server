@@ -161,6 +161,30 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
+            // ---> author post update
+            app.put('/author/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var id, updateData, filter, options, updateUserDoc, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            id = req.params.id;
+                            updateData = req.body;
+                            filter = { _id: new mongodb_1.ObjectId(id) };
+                            options = { upsert: true };
+                            updateUserDoc = {
+                                $set: {
+                                    title: updateData.title,
+                                    description: updateData.description
+                                },
+                            };
+                            return [4 /*yield*/, postsCollection_1.updateOne(filter, updateUserDoc, options)];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
             // ---> author post delete
             app.delete('/author/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var id, query, result;

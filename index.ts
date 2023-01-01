@@ -78,6 +78,22 @@ const run = async () => {
                 res.send(result)
             }
         })
+        // ---> author post update
+        app.put('/author/:id', async (req: Request, res: Response) => {
+            const id = req.params.id;
+            const updateData = req.body;
+
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            const updateUserDoc = {
+                $set: {
+                    title: updateData.title,
+                    description: updateData.description
+                },
+            };
+            const result = await postsCollection.updateOne(filter, updateUserDoc, options);
+            res.send(result)
+        })
 
         // ---> author post delete
         app.delete('/author/:id', async (req: Request, res: Response) => {
