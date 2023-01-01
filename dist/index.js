@@ -74,6 +74,21 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
+            // --->new post 
+            app.post('/posts', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var newPost, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            newPost = req.body;
+                            return [4 /*yield*/, postsCollection_1.insertOne(newPost)];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
             // ---> post details  get
             app.get('/post/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var id, query, result;
@@ -154,7 +169,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                         case 0:
                             id = req.params.id;
                             query = { _id: new mongodb_1.ObjectId(id) };
-                            return [4 /*yield*/, postsCollection_1.find(query).toArray()];
+                            return [4 /*yield*/, postsCollection_1.deleteOne(query)];
                         case 1:
                             result = _a.sent();
                             res.send(result);

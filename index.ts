@@ -35,6 +35,12 @@ const run = async () => {
             const result = await postsCollection.find(query).toArray();
             res.send(result)
         });
+        // --->new post 
+        app.post('/posts', async (req: Request, res: Response) => {
+            const newPost = req.body;
+            const result = await postsCollection.insertOne(newPost);
+            res.send(result)
+        });
         // ---> post details  get
         app.get('/post/:id', async (req: Request, res: Response) => {
             const id = req.params.id;
@@ -77,7 +83,7 @@ const run = async () => {
         app.delete('/author/:id', async (req: Request, res: Response) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
-            const result = await postsCollection.find(query).toArray();
+            const result = await postsCollection.deleteOne(query);
             res.send(result)
         })
 
