@@ -118,6 +118,14 @@ const run = async () => {
             res.send(result)
         });
 
+        // ---> author post delete
+        app.delete('/comments/:id', async (req: Request, res: Response) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await commentsCollection.deleteOne(query);
+            res.send(result)
+        })
+
 
     } finally { }
 }
