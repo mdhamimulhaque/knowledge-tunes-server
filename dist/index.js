@@ -50,11 +50,12 @@ app.use(express.json());
 var uri = "mongodb+srv://".concat(process.env.DB_USER, ":").concat(process.env.DB_USER_PASS, "@cluster0.76zc9vk.mongodb.net/?retryWrites=true&w=majority");
 var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var postsCollection_1, usersCollection_1;
+    var postsCollection_1, usersCollection_1, commentsCollection_1;
     return __generator(this, function (_a) {
         try {
             postsCollection_1 = client.db("knowledgeTunes").collection("Posts");
             usersCollection_1 = client.db("knowledgeTunes").collection("Users");
+            commentsCollection_1 = client.db("knowledgeTunes").collection("comments");
             // ---> test
             app.get('/', function (req, res) {
                 res.send('server is running');
@@ -194,6 +195,37 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                             id = req.params.id;
                             query = { _id: new mongodb_1.ObjectId(id) };
                             return [4 /*yield*/, postsCollection_1.deleteOne(query)];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            // ---> new comment
+            app.post('/comments', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var newComment, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            newComment = req.body;
+                            return [4 /*yield*/, commentsCollection_1.insertOne(newComment)];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            // ---> get all comments
+            app.get('/comments', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var category, query, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            category = req.query.category;
+                            query = { category: category };
+                            return [4 /*yield*/, commentsCollection_1.find(query).toArray()];
                         case 1:
                             result = _a.sent();
                             res.send(result);

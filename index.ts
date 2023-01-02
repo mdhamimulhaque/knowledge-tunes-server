@@ -22,6 +22,7 @@ const run = async () => {
         // ---> db collections
         const postsCollection = client.db("knowledgeTunes").collection("Posts");
         const usersCollection = client.db("knowledgeTunes").collection("Users");
+        const commentsCollection = client.db("knowledgeTunes").collection("comments");
 
 
         // ---> test
@@ -102,6 +103,20 @@ const run = async () => {
             const result = await postsCollection.deleteOne(query);
             res.send(result)
         })
+
+        // ---> new comment
+        app.post('/comments', async (req: Request, res: Response) => {
+            const newComment = req.body;
+            const result = await commentsCollection.insertOne(newComment);
+            res.send(result)
+        });
+        // ---> get all comments
+        app.get('/comments', async (req: Request, res: Response) => {
+            const category = req.query.category;
+            const query = { category: category };
+            const result = await commentsCollection.find(query).toArray()
+            res.send(result)
+        });
 
 
     } finally { }
