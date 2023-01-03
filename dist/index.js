@@ -70,7 +70,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                             return [4 /*yield*/, postsCollection_1.find(query).toArray()];
                         case 1:
                             result = _a.sent();
-                            res.send(result);
+                            res.send(result.reverse());
                             return [2 /*return*/];
                     }
                 });
@@ -85,7 +85,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                             return [4 /*yield*/, postsCollection_1.find(query).toArray()];
                         case 1:
                             result = _a.sent();
-                            res.send(result);
+                            res.send(result.reverse());
                             return [2 /*return*/];
                     }
                 });
@@ -208,7 +208,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                             return [4 /*yield*/, postsCollection_1.find(query).toArray()];
                         case 1:
                             result = _a.sent();
-                            res.send(result);
+                            res.send(result.reverse());
                             _a.label = 2;
                         case 2: return [2 /*return*/];
                     }

@@ -34,13 +34,13 @@ const run = async () => {
         app.get('/posts', async (req: Request, res: Response) => {
             const query = {};
             const result = await postsCollection.find(query).toArray();
-            res.send(result)
+            res.send(result.reverse())
         });
         // ---> popular post
         app.get('/popular-posts', async (req: Request, res: Response) => {
             const query = { isPopular: true };
             const result = await postsCollection.find(query).toArray();
-            res.send(result)
+            res.send(result.reverse())
         });
         // --->new post 
         app.post('/posts', async (req: Request, res: Response) => {
@@ -103,7 +103,7 @@ const run = async () => {
             if (email != 'undefined') {
                 const query = { email: email };
                 const result = await postsCollection.find(query).toArray();
-                res.send(result)
+                res.send(result.reverse())
             }
         })
         // ---> author post update
