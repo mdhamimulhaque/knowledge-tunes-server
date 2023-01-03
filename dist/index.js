@@ -106,6 +106,28 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
+            // ---> make popular post
+            app.put('/posts', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var id, filter, options, updateDoc, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            id = req.query.id;
+                            filter = { _id: new mongodb_1.ObjectId(id) };
+                            options = { upsert: true };
+                            updateDoc = {
+                                $set: {
+                                    isPopular: true
+                                },
+                            };
+                            return [4 /*yield*/, postsCollection_1.updateOne(filter, updateDoc, options)];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
             // ---> category get
             app.get('/category/:name', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var name, query, result;

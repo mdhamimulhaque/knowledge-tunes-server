@@ -50,6 +50,21 @@ const run = async () => {
             res.send(result)
         });
 
+        // ---> make popular post
+        app.put('/posts', async (req: Request, res: Response) => {
+            const id: any = req.query.id;
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    isPopular: true
+                },
+            };
+
+            const result = await postsCollection.updateOne(filter, updateDoc, options);
+            res.send(result)
+        })
+
         // ---> category get
         app.get('/category/:name', async (req: Request, res: Response) => {
             const name = req.params.name;
