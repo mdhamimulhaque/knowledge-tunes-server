@@ -232,7 +232,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
-            // ---> get all comments
+            // ---> get all comments category base
             app.get('/comments', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var category, query, result;
                 return __generator(this, function (_a) {
@@ -240,6 +240,21 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                         case 0:
                             category = req.query.category;
                             query = { category: category };
+                            return [4 /*yield*/, commentsCollection_1.find(query).toArray()];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            // ---> get all comments category base
+            app.get('/all-comments', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var query, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            query = {};
                             return [4 /*yield*/, commentsCollection_1.find(query).toArray()];
                         case 1:
                             result = _a.sent();

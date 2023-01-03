@@ -116,10 +116,17 @@ const run = async () => {
             const result = await commentsCollection.insertOne(newComment);
             res.send(result)
         });
-        // ---> get all comments
+        // ---> get all comments category base
         app.get('/comments', async (req: Request, res: Response) => {
             const category = req.query.category;
             const query = { category: category };
+            const result = await commentsCollection.find(query).toArray()
+            res.send(result)
+        });
+
+        // ---> get all comments category base
+        app.get('/all-comments', async (req: Request, res: Response) => {
+            const query = {};
             const result = await commentsCollection.find(query).toArray()
             res.send(result)
         });
