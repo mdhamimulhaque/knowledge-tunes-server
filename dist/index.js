@@ -144,6 +144,21 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
+            // ---> userinfo store
+            app.get('/users', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var query, users;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            query = {};
+                            return [4 /*yield*/, usersCollection_1.find(query).toArray()];
+                        case 1:
+                            users = _a.sent();
+                            res.send(users);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
             // ---> author post delete
             app.get('/author', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var email, query, result;

@@ -69,6 +69,12 @@ const run = async () => {
             const result = await usersCollection.insertOne(users);
             res.send(result)
         })
+        // ---> userinfo store
+        app.get('/users', async (req: Request, res: Response) => {
+            const query = {};
+            const users = await usersCollection.find(query).toArray();
+            res.send(users)
+        })
 
         // ---> author post delete
         app.get('/author', async (req: Request, res: Response) => {
