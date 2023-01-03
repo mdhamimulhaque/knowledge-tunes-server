@@ -36,6 +36,12 @@ const run = async () => {
             const result = await postsCollection.find(query).toArray();
             res.send(result)
         });
+        // ---> popular post
+        app.get('/popular-posts', async (req: Request, res: Response) => {
+            const query = { isPopular: true };
+            const result = await postsCollection.find(query).toArray();
+            res.send(result)
+        });
         // --->new post 
         app.post('/posts', async (req: Request, res: Response) => {
             const newPost = req.body;

@@ -75,6 +75,21 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     }
                 });
             }); });
+            // ---> popular post
+            app.get('/popular-posts', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var query, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            query = { isPopular: true };
+                            return [4 /*yield*/, postsCollection_1.find(query).toArray()];
+                        case 1:
+                            result = _a.sent();
+                            res.send(result);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
             // --->new post 
             app.post('/posts', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var newPost, result;
