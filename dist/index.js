@@ -60,6 +60,27 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
             app.get('/', function (req, res) {
                 res.send('server is running');
             });
+            // ---> admin check
+            app.get('/users/admin/:email', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var email, query, user;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            email = req.params.email;
+                            query = { email: email };
+                            return [4 /*yield*/, usersCollection_1.findOne(query)];
+                        case 1:
+                            user = _a.sent();
+                            if ((user === null || user === void 0 ? void 0 : user.role) === 'admin') {
+                                return [2 /*return*/, res.send({ isAdmin: true })];
+                            }
+                            else {
+                                res.send({ isAdmin: false });
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
             // ---> all post get
             app.get('/posts', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var query, result;

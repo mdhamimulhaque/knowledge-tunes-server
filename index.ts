@@ -30,6 +30,24 @@ const run = async () => {
             res.send('server is running');
         });
 
+        // ---> admin check
+        app.get('/users/admin/:email', async (req: Request, res: Response) => {
+            const email = req.params.email;
+
+            const query = { email: email };
+            const user = await usersCollection.findOne(query);
+            if (user?.role === 'admin') {
+                return res.send({ isAdmin: true })
+            } else {
+                res.send({ isAdmin: false })
+            }
+
+
+
+            // res.send({ isAdmin: user?.role === 'admin' })
+            // console.log(user)
+        });
+
         // ---> all post get
         app.get('/posts', async (req: Request, res: Response) => {
             const query = {};
