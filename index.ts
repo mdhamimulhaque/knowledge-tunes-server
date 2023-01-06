@@ -114,6 +114,13 @@ const run = async () => {
             const users = await usersCollection.find(query).toArray();
             res.send(users)
         })
+        // ---> user remove
+        app.delete('/users/:id', async (req: Request, res: Response) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await usersCollection.deleteOne(query);
+            res.send(result)
+        })
 
         // ---> author post delete
         app.get('/author', async (req: Request, res: Response) => {
