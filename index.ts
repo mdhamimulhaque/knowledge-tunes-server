@@ -122,6 +122,21 @@ const run = async () => {
             res.send(result)
         })
 
+        // ---> handle make admin
+        app.put('/make-admin', async (req: Request, res: Response) => {
+            const id: any = req.query.id;
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    role: "admin"
+                },
+            };
+
+            const result = await usersCollection.updateOne(filter, updateDoc, options);
+            res.send(result)
+        })
+
         // ---> author post delete
         app.get('/author', async (req: Request, res: Response) => {
             const email = req.query.email;
